@@ -1,0 +1,46 @@
+/* General Styling for AnchorPane */
+.anchor-pane {
+    -fx-background-color: #f4f4f4; /* Light gray background for a clean look */
+}
+
+/* Styling for the sidebar rectangle */
+.rectangle {
+    -fx-fill: #00376b; /* Navy blue color */
+    -fx-arc-height: 10;
+    -fx-arc-width: 10;
+    -fx-stroke: #00254d; /* Darker stroke for contrast */
+    -fx-stroke-width: 1.5;
+}
+
+/* Styling for JFXButtons */
+.jfx-button {
+    -fx-background-color: #00509e; /* A vibrant blue for buttons */
+    -fx-background-radius: 10;
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial Black";
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+    -fx-border-color: #00254d;
+    -fx-border-width: 2;
+}
+
+.jfx-button:hover {
+    -fx-background-color: #0066cc; /* Lighter blue on hover */
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.4), 8, 0, 4, 4);
+}
+
+.jfx-button:pressed {
+    -fx-background-color: #004085; /* Darker blue when pressed */
+    -fx-effect: none;
+}
+
+/* Styling for the content pane */
+#paneLoadForm {
+    -fx-background-color: white;
+    -fx-border-color: #d3d3d3;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0, 2, 2);
+}

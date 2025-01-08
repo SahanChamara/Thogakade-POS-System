@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="540.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashboardFormController">
+
+    <children>
+
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00376b" height="540.0" layoutX="1.0" stroke="BLACK" strokeLineCap="ROUND" strokeType="INSIDE" width="261.0" />
+        <JFXButton alignment="CENTER" layoutX="14.0" layoutY="186.0" onAction="#btnAddCustomerFormOnAction" prefHeight="44.0" prefWidth="233.0" style="-fx-background-radius: 10;" text="Add Customer Form" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/personIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton alignment="CENTER" layoutX="14.0" layoutY="243.0" onAction="#btnItemManageFromOnAction" prefHeight="44.0" prefWidth="233.0" style="-fx-background-radius: 10;" text="Item Manage Form" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/inventoryIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <JFXButton alignment="CENTER" layoutX="14.0" layoutY="301.0" onAction="#btnOrderPlaceFormOnAction" prefHeight="44.0" prefWidth="233.0" style="-fx-background-radius: 10;" text="Order Place Form" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+         <graphic>
+            <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/orderIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+        </JFXButton>
+        <AnchorPane fx:id="paneLoadForm" layoutX="261.0" prefHeight="540.0" prefWidth="559.0" />
+      <ImageView fitHeight="88.0" fitWidth="97.0" layoutX="87.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/shopIcon.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="63.0" layoutY="102.0" prefHeight="24.0" prefWidth="136.0" text="Thogakade" textFill="#fff200">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
