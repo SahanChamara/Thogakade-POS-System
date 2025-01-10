@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class AddCustomerFormController implements Initializable {
+public class CustomerFormController implements Initializable {
 
     @FXML
     private TableColumn colAddress;

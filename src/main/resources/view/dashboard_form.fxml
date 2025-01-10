@@ -7,46 +7,46 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.dashboard.DashboardFormController">
-   <children>
-      <TabPane prefHeight="600.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab fx:id="paneCustomerManagement" onSelectionChanged="#chCustomerManagement" text="Customer Management">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-               <graphic>
-                  <ImageView fitHeight="27.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/personIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-          </Tab>
-          <Tab fx:id="paneItemManagement" onSelectionChanged="#chItemManagement" text="Item Management">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-               <graphic>
-                  <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/inventoryIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-          </Tab>
-            <Tab fx:id="paneOrderManagement" onSelectionChanged="#chOrderManagement" text="Order Management">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-               <graphic>
-                  <ImageView fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/orderIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Tab>
-        </tabs>
-      </TabPane>
-   </children>
+    <children>
+        <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab fx:id="tabCustomerManagement" onSelectionChanged="#chCustomerManagement" text="Customer Management">
+                    <content>
+                        <AnchorPane fx:id="paneCustomerManagement" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                    <graphic>
+                        <ImageView fitHeight="27.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/personIcon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Tab>
+                <Tab fx:id="tabItemManagement" onSelectionChanged="#chItemManagement" text="Item Management">
+                    <content>
+                        <AnchorPane fx:id="paneItemManagement" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                    <graphic>
+                        <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/inventoryIcon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Tab>
+                <Tab fx:id="tabOrderManagement" onSelectionChanged="#chOrderManagement" text="Order Management">
+                    <content>
+                        <AnchorPane fx:id="paneOrderManagement" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    </content>
+                    <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/orderIcon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

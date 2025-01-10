@@ -12,7 +12,7 @@ import model.Item;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddItemFormController implements Initializable {
+public class ItemFormController implements Initializable {
 
     @FXML
     private Label lblId;
