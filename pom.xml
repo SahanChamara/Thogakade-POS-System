@@ -56,6 +56,14 @@
             <artifactId>jasypt</artifactId>
             <version>1.9.3</version>
         </dependency>
-    </dependencies>>
+
+        <!-- https://mvnrepository.com/artifact/io.github.palexdev/materialfx -->
+        <dependency>
+            <groupId>io.github.palexdev</groupId>
+            <artifactId>materialfx</artifactId>
+            <version>11.17.0</version>
+        </dependency>
+
+    </dependencies>
 
 </project>

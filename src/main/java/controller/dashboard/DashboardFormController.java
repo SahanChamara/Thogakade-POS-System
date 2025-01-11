@@ -39,7 +39,13 @@ public class DashboardFormController {
 
     @FXML
     void chItemManagement(Event event) throws IOException {
-        loadPanes("/view/item_form.fxml",paneItemManagement);
+//        loadPanes("/view/item_form.fxml",paneItemManagement);
+        URL resource = this.getClass().getResource("/view/item_form.fxml");
+        assert resource != null;
+        Parent load = FXMLLoader.load(resource);
+        paneItemManagement.getStylesheets().add(getClass().getResource("/css/item form.css").toExternalForm());
+        paneItemManagement.getChildren().clear();
+        paneItemManagement.getChildren().add(load);
     }
 
     @FXML

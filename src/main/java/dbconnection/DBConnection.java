@@ -6,7 +6,7 @@ public class DBConnection {
     private Connection connection;
 
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection("jdbc:mysql://localhost/thogakade","root","1234");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost/thogakade","root","sahan@sql");
     }
 
     public static DBConnection getInstance() throws SQLException {
