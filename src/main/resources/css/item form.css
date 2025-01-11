@@ -1,13 +1,25 @@
-.mfx-button {
-	-fx-text-fill: -mfx-text-he;
+.add-button {
+	-fx-background-color: #00b894;
+}
+.update-button {
+	-fx-text-fill: white;
+	-fx-background-color: #0984e3;
+}
+.delete-button {
+	-fx-text-fill: white;
+	-fx-background-color: #6c5ce7;
+}
+.search-button {
+	-fx-text-fill: white;
+	-fx-background-color: #636e72;
 }
 
-.mfx-button .mfx-ripple-generator {
+/*.mfx-button .mfx-ripple-generator {
 	-mfx-ripple-radius: 40;
 	-mfx-auto-clip: true;
-}
+}*/
 
-.mfx-button .text {
+/*.mfx-button .text {
 	-fx-font-smoothing-type: gray;
 }
 
@@ -47,7 +59,7 @@
 
 .link-button .mfx-ripple-generator {
 	-mfx-ripple-color: #D9E9FF;
-}
+}*/
 
 /* text fields*/
 .mfx-text-field {

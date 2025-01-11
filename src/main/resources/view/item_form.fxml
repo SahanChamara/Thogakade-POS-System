@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXTableColumn?>
-<?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="540.0" prefWidth="820.0" stylesheets="../css/item form.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.item.ItemFormController">
+<AnchorPane prefHeight="540.0" prefWidth="820.0" stylesheets="@../css/item form.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.item.ItemFormController">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2b576d" height="69.0" layoutX="-4.0" layoutY="-8.0" stroke="WHITE" strokeLineCap="ROUND" strokeType="OUTSIDE" width="837.0" />
       <Label layoutX="271.0" layoutY="14.0" prefHeight="40.0" prefWidth="280.0" text="Item Management" textFill="WHITE">
@@ -18,17 +18,20 @@
          </font>
       </Label>
       <MFXTextField fx:id="txtItemCode" editable="false" floatMode="BORDER" layoutX="46.0" layoutY="92.0" prefHeight="22.0" prefWidth="280.0" promptText="Item Code" />
-      <MFXTextField fx:id="txtDescription" floatMode="BORDER" layoutX="459.0" layoutY="92.0" prefHeight="40.0" prefWidth="280.0" promptText="Description" />
-      <MFXTextField fx:id="txtPrice" floatMode="BORDER" layoutX="46.0" layoutY="173.0" prefHeight="22.0" prefWidth="280.0" promptText="Unit Price" />
-      <MFXTextField fx:id="txtQty" floatMode="BORDER" layoutX="459.0" layoutY="173.0" prefHeight="22.0" prefWidth="280.0" promptText="Qty On Hand" />
-      <MFXButton layoutX="82.0" layoutY="237.0" onAction="#btnAddItemOnAction" prefHeight="31.0" prefWidth="90.0" text="Add Item" />
-      <MFXButton layoutX="252.0" layoutY="237.0" onAction="#btnUpdateItemOnAction" prefHeight="31.0" prefWidth="90.0" text="Update Item" />
-      <MFXButton layoutX="414.0" layoutY="237.0" onAction="#btnSearchItemOnACtion" prefHeight="31.0" prefWidth="90.0" text="Search item" />
-      <MFXButton layoutX="611.0" layoutY="237.0" onAction="#btnDeleteItemOnAction" prefHeight="31.0" prefWidth="90.0" text="Delete Item" />
-      <MFXTableView fx:id="tblItem" layoutX="46.0" layoutY="281.0" prefHeight="246.0" prefWidth="685.0" />
-      <MFXTableColumn fx:id="colItemCode" layoutX="46.0" layoutY="276.0" prefHeight="31.0" prefWidth="154.0" text="Item Code" />
-      <MFXTableColumn fx:id="colDescription" layoutX="204.0" layoutY="276.0" prefHeight="31.0" prefWidth="245.0" text="Description" />
-      <MFXTableColumn fx:id="colUnitPrice" layoutX="464.0" layoutY="276.0" prefHeight="31.0" prefWidth="135.0" text="Unit Price" />
-      <MFXTableColumn fx:id="colQty" layoutX="599.0" layoutY="276.0" prefHeight="31.0" prefWidth="135.0" text="Qtn On Hand" />
+      <MFXTextField fx:id="txtDescription" floatMode="BORDER" layoutX="459.0" layoutY="92.0" prefHeight="40.0" prefWidth="280.0" promptText="Description" styleClass="floating-text" stylesheets="@../css/item%20form.css" />
+      <MFXTextField fx:id="txtPrice" floatMode="BORDER" layoutX="46.0" layoutY="173.0" prefHeight="22.0" prefWidth="280.0" promptText="Unit Price" styleClass="text-field" />
+      <MFXTextField fx:id="txtQty" floatMode="BORDER" layoutX="459.0" layoutY="173.0" prefHeight="22.0" prefWidth="280.0" promptText="Qty On Hand" styleClass="text-field" />
+      <MFXButton depthLevel="LEVEL0" layoutX="82.0" layoutY="237.0" onAction="#btnAddItemOnAction" prefHeight="31.0" prefWidth="90.0" rippleAnimateBackground="false" rippleColor="BLACK" styleClass="add-button" stylesheets="@../css/item%20form.css" text="Add Item" />
+      <MFXButton layoutX="252.0" layoutY="237.0" onAction="#btnUpdateItemOnAction" prefHeight="31.0" prefWidth="90.0" rippleAnimateBackground="false" styleClass="update-button" stylesheets="@../css/item%20form.css" text="Update Item" />
+      <MFXButton layoutX="414.0" layoutY="237.0" onAction="#btnSearchItemOnACtion" prefHeight="31.0" prefWidth="90.0" rippleAnimateBackground="false" styleClass="search-button" stylesheets="@../css/item%20form.css" text="Search item" />
+      <MFXButton layoutX="611.0" layoutY="237.0" onAction="#btnDeleteItemOnAction" prefHeight="31.0" prefWidth="90.0" rippleAnimateBackground="false" styleClass="delete-button" stylesheets="@../css/item%20form.css" text="Delete Item" />
+      <TableView fx:id="tblItem" layoutX="46.0" layoutY="284.0" prefHeight="200.0" prefWidth="694.0">
+        <columns>
+          <TableColumn fx:id="colItemCode" prefWidth="75.0" text="Item Code" />
+          <TableColumn fx:id="colDescription" prefWidth="372.0" text="Description" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="100.0" text="Unit Price" />
+            <TableColumn fx:id="colQtyOnHand" prefWidth="146.0" text="Qty On Hand" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

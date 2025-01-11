@@ -1,33 +1,35 @@
 package controller.item;
 
-import io.github.palexdev.materialfx.controls.MFXTableColumn;
-import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Item;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ItemFormController implements Initializable {
+    @FXML
+    private TableColumn colItemCode;
 
     @FXML
-    private MFXTableColumn colDescription;
+    private TableColumn colDescription;
 
     @FXML
-    private MFXTableColumn colItemCode;
+    private TableColumn colQtyOnHand;
 
     @FXML
-    private MFXTableColumn colQty;
+    private TableColumn colUnitPrice;
 
     @FXML
-    private MFXTableColumn colUnitPrice;
-
-    @FXML
-    private MFXTableView tblItem;
-
+    private TableView tblItem;
     @FXML
     private MFXTextField txtDescription;
 
@@ -43,14 +45,16 @@ public class ItemFormController implements Initializable {
     @FXML
     void btnAddItemOnAction(ActionEvent event) {
         if(ItemController.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
-
+            loadTable();
+            new Alert(Alert.AlertType.INFORMATION,"item Added Successful").show();
         }
-
     }
 
     @FXML
     void btnDeleteItemOnAction(ActionEvent event) {
-
+        if(ItemController.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
+            new Alert(Alert.AlertType.INFORMATION,"item Deleted Successful").show();
+        }
     }
 
     @FXML
@@ -63,8 +67,20 @@ public class ItemFormController implements Initializable {
 
     }
 
+    void loadTable(){
+        ObservableList<Item> itemObservableList = FXCollections.observableArrayList();
+        itemObservableList.addAll(ItemController.getInstance().getAllItems());
+        tblItem.setItems(itemObservableList);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colItemCode.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
+
         txtItemCode.setText(String.format("P%03d",Integer.parseInt(ItemController.getInstance().generateId().substring(1))+1));
+        loadTable();
     }
 }
