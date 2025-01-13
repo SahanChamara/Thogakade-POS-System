@@ -1,0 +1,202 @@
+/* modern-pos-styles.css */
+
+/* Root styles */
+.root {
+    -fx-background-color: #f3f4f6;
+    -fx-font-family: 'System', -apple-system, sans-serif;
+}
+
+/* Header Rectangle */
+Rectangle {
+    -fx-arc-height: 16;
+    -fx-arc-width: 16;
+}
+
+Rectangle:first-child {
+    -fx-fill: #6366f1;
+    /*-fx-stroke: transparent;*/
+    -fx-stroke: white;
+}
+
+/* White section rectangles */
+Rectangle:not(:first-child) {
+    -fx-fill: white;
+    -fx-stroke: white;
+    -fx-stroke-width: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+}
+
+/* Summary rectangle (dark) */
+Rectangle:last-child {
+    -fx-fill: #1f2937;
+    -fx-stroke: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+}
+
+/* Labels */
+/*.label {
+    -fx-text-fill: #1f2937;
+}*/
+
+/* Header labels */
+Rectangle:first-child .label {
+    -fx-text-fill: white;
+}
+
+/* Input fields */
+.text-field, .jfx-text-field {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8;
+    -fx-font-size: 14;
+}
+
+.text-field:focused, .jfx-text-field:focused {
+    -fx-border-color: #6366f1;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.1), 4, 0, 0, 0);
+}
+
+/* Combo boxes */
+.jfx-combo-box, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 4;
+}
+
+.combo-box:focused {
+    -fx-border-color: #6366f1;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 4 8;
+}
+
+/* Buttons */
+.button, .jfx-button, .mfx-button {
+    -fx-background-radius: 8;
+    -fx-padding: 8 16;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 1);
+}
+
+/* Add New Customer button */
+.mfx-button {
+    -fx-background-color: #22c55e;
+    -fx-text-fill: white;
+}
+
+.mfx-button:hover {
+    -fx-background-color: #16a34a;
+}
+
+/* Add To Order button */
+.jfx-button {
+    -fx-background-color: #6366f1;
+    -fx-text-fill: white;
+}
+
+.jfx-button:hover {
+    -fx-background-color: #4f46e5;
+}
+
+/* Remove Order button */
+.jfx-button:nth-child(2) {
+    -fx-background-color: #ef4444;
+}
+
+.jfx-button:nth-child(2):hover {
+    -fx-background-color: #dc2626;
+}
+
+/* Table styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 0, 1);
+}
+
+.table-view .column-header {
+    -fx-background-color: #f9fafb;
+    -fx-padding: 12 8;
+}
+
+.table-view .column-header .label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #374151;
+}
+
+.table-view .table-row-cell {
+    -fx-padding: 8;
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f9fafb;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: #6366f1;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: white;
+}
+
+/* Total section labels */
+Rectangle:last-child .label {
+    -fx-text-fill: white;
+}
+
+/* Cancel button */
+#btnCanselOnAction {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+}
+
+#btnCanselOnAction:hover {
+    -fx-background-color: #dc2626;
+}
+
+/* Place Order button */
+#btnPlaceOrderOnAction {
+    -fx-background-color: #22c55e;
+    -fx-text-fill: white;
+}
+
+#btnPlaceOrderOnAction:hover {
+    -fx-background-color: #16a34a;
+}
+
+/* Status labels (Customer Name, Description, Unit Price, Qty on Hand) */
+.label[style*="border-color: black"] {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 8;
+    -fx-padding: 6 12;
+}
+
+/* Images in buttons */
+.button ImageView, .jfx-button ImageView {
+    -fx-opacity: 0.9;
+}
+
+/* Hover effects */
+.button:hover, .jfx-button:hover {
+    -fx-translate-y: -1;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 2);
+}
+
+/* Focus states */
+.button:focused, .jfx-button:focused {
+    -fx-border-color: #6366f1;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+}

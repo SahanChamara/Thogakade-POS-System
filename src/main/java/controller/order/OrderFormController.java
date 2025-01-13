@@ -3,13 +3,29 @@ package controller.order;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import io.github.palexdev.mfxcore.controls.Label;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
-public class OrderFormController {
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.ResourceBundle;
 
+public class OrderFormController implements Initializable {
+
+    @FXML
+    public AnchorPane paneOrderForm;
+    @FXML
+    public Label lblTime;
     @FXML
     private TableColumn<?, ?> colDescription;
 
@@ -83,4 +99,21 @@ public class OrderFormController {
 
     }
 
+    void setTime() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> {
+                    LocalTime localTime = LocalTime.now();
+                    lblTime.setText(localTime.getHour() + " : " + localTime.getMinute() + " : " + localTime.getSecond());
+                }),
+                new KeyFrame(Duration.seconds(1))
+        );
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        lblDate.setText(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+        setTime();
+    }
 }

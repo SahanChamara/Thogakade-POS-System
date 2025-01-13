@@ -43,8 +43,8 @@ public class DashboardFormController {
     }
 
     @FXML
-    void chOrderManagement(Event event) {
-
+    void chOrderManagement(Event event) throws IOException {
+        loadPanes("/view/order_form.fxml",paneOrderManagement);
     }
 
     void loadPanes(String fxmlPath, AnchorPane pane) throws IOException {
