@@ -6,6 +6,8 @@ import io.github.palexdev.mfxcore.controls.Label;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import model.Item;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -27,25 +30,25 @@ public class OrderFormController implements Initializable {
     @FXML
     public Label lblTime;
     @FXML
-    private TableColumn<?, ?> colDescription;
+    private TableColumn colDescription;
 
     @FXML
-    private TableColumn<?, ?> colItemCode;
+    private TableColumn colItemCode;
 
     @FXML
-    private TableColumn<?, ?> colQty;
+    private TableColumn colQty;
 
     @FXML
-    private TableColumn<?, ?> colTotal;
+    private TableColumn colTotal;
 
     @FXML
-    private TableColumn<?, ?> colUnitPrice;
+    private TableColumn colUnitPrice;
 
     @FXML
-    private JFXComboBox<?> comboCustomerId;
+    private JFXComboBox comboCustomerId;
 
     @FXML
-    private JFXComboBox<?> comboItemCode;
+    private JFXComboBox comboItemCode;
 
     @FXML
     private Label lblCustomerName;
@@ -69,7 +72,7 @@ public class OrderFormController implements Initializable {
     private Label lblUnitPrice;
 
     @FXML
-    private TableView<?> tblOrder;
+    private TableView tblOrder;
 
     @FXML
     private JFXTextField txtQty;
@@ -99,6 +102,15 @@ public class OrderFormController implements Initializable {
 
     }
 
+    @FXML
+    public void comboCusStateChange(ActionEvent actionEvent) {
+        setCustomerName();
+    }
+
+    void setOrderId(){
+        lblOrderId.setText(OrderController.getInstance().getOrderId());
+    }
+
     void setTime() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, e -> {
@@ -111,9 +123,38 @@ public class OrderFormController implements Initializable {
         timeline.play();
     }
 
+    void loadCustomerId(){
+        ObservableList<String> customerIdObservableList = FXCollections.observableArrayList();
+        customerIdObservableList.addAll(OrderController.getInstance().getCustomerId());
+        comboCustomerId.setItems(customerIdObservableList);
+    }
+
+    void setCustomerName(){
+        lblCustomerName.setText(OrderController.getInstance().searchCustomerName(comboCustomerId.getSelectionModel().getSelectedItem().toString()).getName());
+    }
+
+    void loadItemCodes(){
+        ObservableList<String> itemCodesObservableList = FXCollections.observableArrayList();
+        for (Item item : OrderController.getInstance().getItemCode()) {
+            itemCodesObservableList.add(item.getCode());
+        }
+        comboItemCode.setItems(itemCodesObservableList);
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // set Date
         lblDate.setText(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
+
+        // set Time
         setTime();
+
+        // set Order ID
+        setOrderId();
+
+        // set Customer iDs to Combo Box
+        loadCustomerId();
+
+        // set Item Codes to Combo Box
+        loadItemCodes();
     }
 }
