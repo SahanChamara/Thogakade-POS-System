@@ -51,7 +51,7 @@ public class ItemController implements ItemService {
     public String generateId() {
         try {
             ResultSet rst = DBConnection.getInstance().getConnection().createStatement().executeQuery("SELECT code FROM item ORDER BY code DESC LIMIT 1");
-            return rst.next()?rst.getString(1):null;
+            return rst.next()?rst.getString(1):"P001";
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }
@@ -61,6 +61,34 @@ public class ItemController implements ItemService {
     public boolean deleteItem(Item item) {
         try {
             return DBConnection.getInstance().getConnection().createStatement().executeUpdate("DELETE FROM item WHERE code='"+item.getCode()+"'")>0;
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    @Override
+    public List<Item> searchItem(String code) {
+        ArrayList<Item> itemArrayList = new ArrayList<>();
+        try {
+            ResultSet rst = DBConnection.getInstance().getConnection().createStatement().executeQuery("SELECT *" + " FROM item WHERE code='"+code+"'");
+            if(rst.next()){
+                itemArrayList.add(new Item(null,rst.getString(2),rst.getDouble(3),rst.getInt(4)));
+            }
+            return itemArrayList;
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    @Override
+    public boolean updateItem(Item item) {
+        try {
+            PreparedStatement prepareStm = DBConnection.getInstance().getConnection().prepareStatement("UPDATE item SET description=?, unitPrice=?,qtyOnHand=? WHERE code=?");
+            prepareStm.setString(1,item.getDescription());
+            prepareStm.setDouble(2,item.getUnitPrice());
+            prepareStm.setInt(3,item.getQtyOnHand());
+            prepareStm.setString(4,item.getCode());
+            return prepareStm.executeUpdate()>0;
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }

@@ -54,17 +54,29 @@ public class ItemFormController implements Initializable {
     void btnDeleteItemOnAction(ActionEvent event) {
         if(ItemController.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
             new Alert(Alert.AlertType.INFORMATION,"item Deleted Successful").show();
+            loadTable();
+        }else {
+            new Alert(Alert.AlertType.INFORMATION,"item Deleted Failed").show();
         }
     }
 
     @FXML
-    void btnSearchItemOnACtion(ActionEvent event) {
-
+    void btnSearchItemOnAction(ActionEvent event) {
+        for (Item item : ItemController.getInstance().searchItem(txtItemCode.getText())){
+            txtDescription.setText(item.getDescription());
+            txtPrice.setText(String.valueOf(item.getUnitPrice()));
+            txtQty.setText(String.valueOf(item.getQtyOnHand()));
+        }
     }
 
     @FXML
     void btnUpdateItemOnAction(ActionEvent event) {
-
+        if(ItemController.getInstance().updateItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
+            new Alert(Alert.AlertType.INFORMATION,"item Update Successful").show();
+            loadTable();
+        }else {
+            new Alert(Alert.AlertType.INFORMATION,"item Update Failed").show();
+        }
     }
 
     void loadTable(){

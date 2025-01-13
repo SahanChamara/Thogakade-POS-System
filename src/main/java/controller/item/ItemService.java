@@ -9,4 +9,6 @@ public interface ItemService {
     List<Item> getAllItems();
     String generateId();
     boolean deleteItem(Item item);
+    List<Item>searchItem(String code);
+    boolean updateItem(Item item);
 }
