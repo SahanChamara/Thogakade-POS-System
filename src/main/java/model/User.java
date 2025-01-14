@@ -9,9 +9,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Users {
-    private Integer id;
-    private String email;
+public class User {
+    private String id;
     private String userName;
+    private String email;
     private String password;
 }

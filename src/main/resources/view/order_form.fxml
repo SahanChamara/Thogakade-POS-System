@@ -47,7 +47,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="comboCustomerId" layoutX="14.0" layoutY="126.0" onAction="#comboCusStateChange" prefHeight="26.0" prefWidth="118.0" />
+      <JFXComboBox fx:id="comboCustomerId" layoutX="14.0" layoutY="126.0" onAction="#comboCusStateChange" prefHeight="35.0" prefWidth="129.0" promptText="Select Cus ID" />
       <Label layoutX="180.0" layoutY="99.0" prefHeight="26.0" prefWidth="129.0" text="Customer Name">
          <font>
             <Font size="15.0" />
@@ -70,7 +70,7 @@
             </ImageView>
          </graphic>
       </MFXButton>
-      <JFXComboBox fx:id="comboItemCode" layoutX="14.0" layoutY="229.0" prefHeight="25.0" prefWidth="105.0" />
+      <JFXComboBox fx:id="comboItemCode" layoutX="14.0" layoutY="229.0" prefHeight="35.0" prefWidth="129.0" promptText="Select Item Code" />
       <Label layoutX="14.0" layoutY="201.0" prefHeight="26.0" prefWidth="105.0" text="Item Code">
          <font>
             <Font size="15.0" />
