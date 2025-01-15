@@ -53,4 +53,11 @@ public class OrderController implements OrderService{
     public List<Item> getItemCode() {
         return ItemController.getInstance().getAllItems();
     }
+
+    @Override
+    public List<Item> loadItemDetails(String itemId) {
+        return ItemController.getInstance().searchItem(itemId);
+    }
+
+
 }

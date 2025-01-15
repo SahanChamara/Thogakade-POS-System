@@ -11,11 +11,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.Item;
+import model.OrderTable;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -24,25 +27,23 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class OrderFormController implements Initializable {
-
     @FXML
     public AnchorPane paneOrderForm;
     @FXML
     public Label lblTime;
-    @FXML
-    private TableColumn colDescription;
 
     @FXML
-    private TableColumn colItemCode;
-
+    public TableView tblOrders;
     @FXML
-    private TableColumn colQty;
-
+    public TableColumn colItemCode;
     @FXML
-    private TableColumn colTotal;
-
+    public TableColumn colDesc;
     @FXML
-    private TableColumn colUnitPrice;
+    public TableColumn colQty;
+    @FXML
+    public TableColumn colUnitPrice;
+    @FXML
+    public TableColumn colTotal;
 
     @FXML
     private JFXComboBox comboCustomerId;
@@ -72,10 +73,9 @@ public class OrderFormController implements Initializable {
     private Label lblUnitPrice;
 
     @FXML
-    private TableView tblOrder;
-
-    @FXML
     private JFXTextField txtQty;
+
+    private ObservableList<OrderTable> orderTableObservableList = FXCollections.observableArrayList();
 
     @FXML
     void btnAddNewCustomerOnAction(ActionEvent event) {
@@ -84,12 +84,46 @@ public class OrderFormController implements Initializable {
 
     @FXML
     void btnAddToOrderOnAction(ActionEvent event) {
+        if (checkQtyOnHand()) {
+            colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+            colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
+            colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+            colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+            colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+            tblOrders.setItems(orderTableObservableList);
 
+            Double totalPrice = (Integer.parseInt(txtQty.getText()) * Double.parseDouble(lblUnitPrice.getText()));
+            OrderTable orderTable = new OrderTable(comboItemCode.getSelectionModel().getSelectedItem().toString(), lblDescription.getText(), Integer.parseInt(txtQty.getText()), Double.parseDouble(lblUnitPrice.getText()), totalPrice);
+
+            int existIndex = orderTableObservableList.indexOf(orderTable);
+
+            if (existIndex != -1) {
+                OrderTable orderTableExist = orderTableObservableList.get(existIndex);
+                orderTableObservableList.set(existIndex, new OrderTable(comboItemCode.getSelectionModel().getSelectedItem().toString(),
+                        lblDescription.getText(),
+                        Integer.parseInt(txtQty.getText()) + orderTableExist.getQty(),
+                        Double.parseDouble(lblUnitPrice.getText()),
+                        totalPrice + orderTableExist.getTotal())
+                );
+            } else {
+                orderTableObservableList.add(orderTable);
+            }
+            txtQty.clear();
+            calculateTotal();
+        }else{
+            new Alert(Alert.AlertType.INFORMATION,"Enough Stock...").show();
+        }
     }
 
-    @FXML
-    void btnCanselOnAction(ActionEvent event) {
+    void calculateTotal(){
+        double netTotal = 0.0;
+        for (OrderTable orderTable : orderTableObservableList) {
+            lblTotal.setText(String.valueOf(netTotal += orderTable.getTotal()));
+        }
+    }
 
+    boolean checkQtyOnHand() {
+        return Integer.parseInt(txtQty.getText()) <= Integer.parseInt(lblQtyOnHand.getText());
     }
 
     @FXML
@@ -107,7 +141,7 @@ public class OrderFormController implements Initializable {
         setCustomerName();
     }
 
-    void setOrderId(){
+    void setOrderId() {
         lblOrderId.setText(OrderController.getInstance().getOrderId());
     }
 
@@ -123,23 +157,34 @@ public class OrderFormController implements Initializable {
         timeline.play();
     }
 
-    void loadCustomerId(){
+    void loadCustomerId() {
         ObservableList<String> customerIdObservableList = FXCollections.observableArrayList();
         customerIdObservableList.addAll(OrderController.getInstance().getCustomerId());
         comboCustomerId.setItems(customerIdObservableList);
     }
 
-    void setCustomerName(){
+    void setCustomerName() {
         lblCustomerName.setText(OrderController.getInstance().searchCustomerName(comboCustomerId.getSelectionModel().getSelectedItem().toString()).getName());
     }
 
-    void loadItemCodes(){
+    void loadItemCodes() {
         ObservableList<String> itemCodesObservableList = FXCollections.observableArrayList();
         for (Item item : OrderController.getInstance().getItemCode()) {
             itemCodesObservableList.add(item.getCode());
         }
         comboItemCode.setItems(itemCodesObservableList);
     }
+
+
+    @FXML
+    public void comboItemStateChange(ActionEvent actionEvent) {
+        for (Item loadItemDetail : OrderController.getInstance().loadItemDetails(comboItemCode.getSelectionModel().getSelectedItem().toString())) {
+            lblDescription.setText(loadItemDetail.getDescription());
+            lblUnitPrice.setText(String.valueOf(loadItemDetail.getUnitPrice()));
+            lblQtyOnHand.setText(String.valueOf(loadItemDetail.getQtyOnHand()));
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         // set Date
@@ -157,4 +202,5 @@ public class OrderFormController implements Initializable {
         // set Item Codes to Combo Box
         loadItemCodes();
     }
+
 }

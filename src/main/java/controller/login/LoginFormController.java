@@ -4,9 +4,14 @@ import animatefx.animation.FadeIn;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.User;
+
+import java.io.IOException;
 
 public class LoginFormController {
 
@@ -39,13 +44,16 @@ public class LoginFormController {
     }
 
     @FXML
-    void btnSignInOnAction(ActionEvent event) {
+    void btnSignInOnAction(ActionEvent event) throws IOException {
         if(LoginController.getInstance().loginUser(new User(null,null,txtEmail.getText(),txtPassword.getText()))){
-            System.out.println("login success");
+            Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml")));
+            scene.getStylesheets().add(getClass().getResource("/css/dashboard.css").toExternalForm());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
         }else{
-            System.out.println("login failed");
+            new Alert(Alert.AlertType.INFORMATION,"Email or Password Invalid").show();
         }
-
     }
 
     @FXML

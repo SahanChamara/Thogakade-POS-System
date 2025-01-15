@@ -10,6 +10,5 @@ public interface OrderService {
     List<String> getCustomerId();
     Customer searchCustomerName(String customerId);
     List<Item> getItemCode();
-
-
+    List<Item> loadItemDetails(String itemId);
 }

@@ -115,7 +115,7 @@ Rectangle:first-child .label {
 }
 
 /* Table styles */
-.table-view {
+/*.table-view {
     -fx-background-color: white;
     -fx-background-radius: 8;
     -fx-border-color: #e5e7eb;
@@ -148,7 +148,7 @@ Rectangle:first-child .label {
 
 .table-view .table-row-cell:selected .text {
     -fx-fill: white;
-}
+}*/
 
 /* Total section labels */
 Rectangle:last-child .label {
