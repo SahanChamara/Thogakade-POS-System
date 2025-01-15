@@ -84,38 +84,44 @@ public class OrderFormController implements Initializable {
 
     @FXML
     void btnAddToOrderOnAction(ActionEvent event) {
-        if (checkQtyOnHand()) {
-            colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
-            colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
-            colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
-            colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-            colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-            tblOrders.setItems(orderTableObservableList);
+        try {
+            if (checkQtyOnHand()) {
+                comboCustomerId.setEditable(false);
+                colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
+                colDesc.setCellValueFactory(new PropertyValueFactory<>("description"));
+                colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
+                colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+                colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
+                tblOrders.setItems(orderTableObservableList);
 
-            Double totalPrice = (Integer.parseInt(txtQty.getText()) * Double.parseDouble(lblUnitPrice.getText()));
-            OrderTable orderTable = new OrderTable(comboItemCode.getSelectionModel().getSelectedItem().toString(), lblDescription.getText(), Integer.parseInt(txtQty.getText()), Double.parseDouble(lblUnitPrice.getText()), totalPrice);
+                Double totalPrice = (Integer.parseInt(txtQty.getText()) * Double.parseDouble(lblUnitPrice.getText()));
+                OrderTable orderTable = new OrderTable(comboItemCode.getSelectionModel().getSelectedItem().toString(), lblDescription.getText(), Integer.parseInt(txtQty.getText()), Double.parseDouble(lblUnitPrice.getText()), totalPrice);
 
-            int existIndex = orderTableObservableList.indexOf(orderTable);
+                int existIndex = orderTableObservableList.indexOf(orderTable);
 
-            if (existIndex != -1) {
-                OrderTable orderTableExist = orderTableObservableList.get(existIndex);
-                orderTableObservableList.set(existIndex, new OrderTable(comboItemCode.getSelectionModel().getSelectedItem().toString(),
-                        lblDescription.getText(),
-                        Integer.parseInt(txtQty.getText()) + orderTableExist.getQty(),
-                        Double.parseDouble(lblUnitPrice.getText()),
-                        totalPrice + orderTableExist.getTotal())
-                );
+                if (existIndex != -1) {
+                    OrderTable orderTableExist = orderTableObservableList.get(existIndex);
+                    orderTableObservableList.set(existIndex, new OrderTable(comboItemCode.getSelectionModel().getSelectedItem().toString(),
+                            lblDescription.getText(),
+                            Integer.parseInt(txtQty.getText()) + orderTableExist.getQty(),
+                            Double.parseDouble(lblUnitPrice.getText()),
+                            totalPrice + orderTableExist.getTotal())
+                    );
+                } else {
+                    orderTableObservableList.add(orderTable);
+                }
+                txtQty.clear();
+                calculateTotal();
             } else {
-                orderTableObservableList.add(orderTable);
+                new Alert(Alert.AlertType.INFORMATION, "Enough Stock...").show();
             }
-            txtQty.clear();
-            calculateTotal();
-        }else{
-            new Alert(Alert.AlertType.INFORMATION,"Enough Stock...").show();
+
+        } catch (NumberFormatException e) {
+            new Alert(Alert.AlertType.INFORMATION, "Please Enter Qty...").show();
         }
     }
 
-    void calculateTotal(){
+    void calculateTotal() {
         double netTotal = 0.0;
         for (OrderTable orderTable : orderTableObservableList) {
             lblTotal.setText(String.valueOf(netTotal += orderTable.getTotal()));
@@ -128,6 +134,7 @@ public class OrderFormController implements Initializable {
 
     @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
+        comboCustomerId.setEditable(true);
 
     }
 
