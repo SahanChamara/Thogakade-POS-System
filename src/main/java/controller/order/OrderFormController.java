@@ -18,11 +18,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import model.Item;
+import model.OrderDetail;
 import model.OrderTable;
+import model.Orders;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -136,6 +139,17 @@ public class OrderFormController implements Initializable {
     void btnPlaceOrderOnAction(ActionEvent event) {
         comboCustomerId.setEditable(true);
 
+        ArrayList<OrderDetail> orderDetailArrayList = new ArrayList<>();
+
+        for (OrderTable orderTable : orderTableObservableList) {
+            orderDetailArrayList.add(new OrderDetail(lblOrderId.getText(), orderTable.getItemCode(), orderTable.getQty(), orderTable.getUnitPrice()));
+        }
+
+        if(OrderController.getInstance().placeOrder(new Orders(lblOrderId.getText(),lblDate.getText(),comboCustomerId.getSelectionModel().getSelectedItem().toString(),orderDetailArrayList))){
+            new Alert(Alert.AlertType.INFORMATION,"Order Placed Successful").show();
+        }else {
+            new Alert(Alert.AlertType.INFORMATION,"Order Placed Failed").show();
+        }
     }
 
     @FXML
@@ -149,7 +163,7 @@ public class OrderFormController implements Initializable {
     }
 
     void setOrderId() {
-        lblOrderId.setText(OrderController.getInstance().getOrderId());
+        lblOrderId.setText(String.format("D%03d",Integer.parseInt(OrderController.getInstance().getOrderId().substring(1))+1));
     }
 
     void setTime() {

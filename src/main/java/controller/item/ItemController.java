@@ -2,6 +2,7 @@ package controller.item;
 
 import dbconnection.DBConnection;
 import model.Item;
+import model.OrderDetail;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -89,6 +90,29 @@ public class ItemController implements ItemService {
             prepareStm.setInt(3,item.getQtyOnHand());
             prepareStm.setString(4,item.getCode());
             return prepareStm.executeUpdate()>0;
+        } catch (SQLException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    @Override
+    public boolean updateStock(ArrayList<OrderDetail> orderDetails) {
+        for (OrderDetail orderDetail : orderDetails) {
+            boolean isItemUpdated = updateStock(orderDetail);
+            if(!isItemUpdated){
+                return false;
+            }
+        }
+        return !orderDetails.isEmpty();
+    }
+
+    @Override
+    public boolean updateStock(OrderDetail orderDetail) {
+        try {
+            PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement(("UPDATE item SET qtyOnHand=? WHERE code=?"));
+            pst.setInt(1,orderDetail.getQty());
+            pst.setString(2,orderDetail.getItemCode());
+            return pst.executeUpdate()>0;
         } catch (SQLException e) {
             throw new IllegalArgumentException(e);
         }
