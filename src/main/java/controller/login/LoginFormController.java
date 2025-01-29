@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.User;
+import service.custom.impl.LoginServiceImpl;
 
 import java.io.IOException;
 
@@ -45,7 +46,7 @@ public class LoginFormController {
 
     @FXML
     void btnSignInOnAction(ActionEvent event) throws IOException {
-        if(LoginController.getInstance().loginUser(new User(null,null,txtEmail.getText(),txtPassword.getText()))){
+        if(LoginServiceImpl.getInstance().loginUser(new User(null,null,txtEmail.getText(),txtPassword.getText()))){
             Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml")));
             scene.getStylesheets().add(getClass().getResource("/css/dashboard.css").toExternalForm());
             Stage stage = new Stage();
@@ -58,7 +59,7 @@ public class LoginFormController {
 
     @FXML
     void btnSignUpOnAction(ActionEvent event) {
-        if(LoginController.getInstance().registerUser(new User(null,txtNewUserName.getText(),txtNewEmail.getText(),txtNewPassword.getText()))){
+        if(LoginServiceImpl.getInstance().registerUser(new User(null,txtNewUserName.getText(),txtNewEmail.getText(),txtNewPassword.getText()))){
             new Alert(Alert.AlertType.INFORMATION,"User Registered Successful");
         }else{
             new Alert(Alert.AlertType.INFORMATION,"User Registered Failed");

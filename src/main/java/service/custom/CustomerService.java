@@ -1,10 +1,11 @@
-package controller.customer;
+package service.custom;
 
 import model.Customer;
+import service.SuperService;
 
 import java.util.List;
 
-public interface CustomerService {
+public interface CustomerService extends SuperService {
     List<Customer> getAllCustomer();
 
     boolean addCustomer(Customer customer);

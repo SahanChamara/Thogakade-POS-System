@@ -1,23 +1,24 @@
-package controller.login;
+package service.custom.impl;
 
 import dbconnection.DBConnection;
 import model.User;
 import org.jasypt.util.text.BasicTextEncryptor;
+import service.custom.LoginService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginController implements LoginService {
-    private static LoginController instance;
+public class LoginServiceImpl implements LoginService {
+    private static LoginServiceImpl instance;
     private String key = "12345";
 
-    private LoginController() {
+    private LoginServiceImpl() {
     }
 
-    public static LoginController getInstance() {
-        return instance != null ? instance : new LoginController();
+    public static LoginServiceImpl getInstance() {
+        return instance != null ? instance : new LoginServiceImpl();
     }
 
     @Override

@@ -1,7 +1,8 @@
-package controller.customer;
+package service.custom.impl;
 
 import dbconnection.DBConnection;
 import model.Customer;
+import service.custom.CustomerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,14 +10,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerController implements CustomerService {
-    private static CustomerController instance;
+public class CustomerServiceImpl implements CustomerService {
+    private static CustomerServiceImpl instance;
 
-    private CustomerController() {
+    private CustomerServiceImpl() {
     }
 
-    public static CustomerController getInstance() {
-        return instance == null ? instance = new CustomerController() : instance;
+    public static CustomerServiceImpl getInstance() {
+        return instance == null ? instance = new CustomerServiceImpl() : instance;
     }
 
     @Override
@@ -31,7 +32,6 @@ public class CustomerController implements CustomerService {
         } catch (SQLException e) {
             throw new RuntimeException();
         }
-
     }
 
     @Override

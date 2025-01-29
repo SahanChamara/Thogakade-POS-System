@@ -1,19 +1,20 @@
-package controller.orderdetail;
+package service.custom.impl;
 
 import dbconnection.DBConnection;
 import model.OrderDetail;
+import service.custom.OrderDetailService;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class OrderDetailController implements OrderDetailService{
-    private static OrderDetailController instance;
+public class OrderDetailServiceImpl implements OrderDetailService {
+    private static OrderDetailServiceImpl instance;
 
-    private OrderDetailController() {
+    private OrderDetailServiceImpl() {
     }
-    public static OrderDetailController getInstance(){
-        return instance!=null?instance:new OrderDetailController();
+    public static OrderDetailServiceImpl getInstance(){
+        return instance!=null?instance:new OrderDetailServiceImpl();
     }
 
     @Override
@@ -30,6 +31,7 @@ public class OrderDetailController implements OrderDetailService{
 
     @Override
     public boolean addOrderDetail(OrderDetail orderDetail) {
+        System.out.println(orderDetail);
         try {
             PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement("INSERT INTO orderdetail VALUES (?,?,?,?)");
             pst.setString(1,orderDetail.getOrderId());

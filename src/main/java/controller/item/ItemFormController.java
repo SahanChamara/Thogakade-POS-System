@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Item;
+import service.custom.impl.ItemServiceImpl;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +45,7 @@ public class ItemFormController implements Initializable {
 
     @FXML
     void btnAddItemOnAction(ActionEvent event) {
-        if(ItemController.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
+        if(ItemServiceImpl.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
             loadTable();
             new Alert(Alert.AlertType.INFORMATION,"item Added Successful").show();
         }
@@ -52,7 +53,7 @@ public class ItemFormController implements Initializable {
 
     @FXML
     void btnDeleteItemOnAction(ActionEvent event) {
-        if(ItemController.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
+        if(ItemServiceImpl.getInstance().addItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
             new Alert(Alert.AlertType.INFORMATION,"item Deleted Successful").show();
             loadTable();
         }else {
@@ -62,7 +63,7 @@ public class ItemFormController implements Initializable {
 
     @FXML
     void btnSearchItemOnAction(ActionEvent event) {
-        for (Item item : ItemController.getInstance().searchItem(txtItemCode.getText())){
+        for (Item item : ItemServiceImpl.getInstance().searchItem(txtItemCode.getText())){
             txtDescription.setText(item.getDescription());
             txtPrice.setText(String.valueOf(item.getUnitPrice()));
             txtQty.setText(String.valueOf(item.getQtyOnHand()));
@@ -71,7 +72,7 @@ public class ItemFormController implements Initializable {
 
     @FXML
     void btnUpdateItemOnAction(ActionEvent event) {
-        if(ItemController.getInstance().updateItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
+        if(ItemServiceImpl.getInstance().updateItem(new Item(txtItemCode.getText(),txtDescription.getText(),Double.parseDouble(txtPrice.getText()),Integer.parseInt(txtQty.getText())))){
             new Alert(Alert.AlertType.INFORMATION,"item Update Successful").show();
             loadTable();
         }else {
@@ -81,7 +82,7 @@ public class ItemFormController implements Initializable {
 
     void loadTable(){
         ObservableList<Item> itemObservableList = FXCollections.observableArrayList();
-        itemObservableList.addAll(ItemController.getInstance().getAllItems());
+        itemObservableList.addAll(ItemServiceImpl.getInstance().getAllItems());
         tblItem.setItems(itemObservableList);
     }
 
@@ -92,7 +93,7 @@ public class ItemFormController implements Initializable {
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
 
-        txtItemCode.setText(String.format("P%03d",Integer.parseInt(ItemController.getInstance().generateId().substring(1))+1));
+        txtItemCode.setText(String.format("P%03d",Integer.parseInt(ItemServiceImpl.getInstance().generateId().substring(1))+1));
         loadTable();
     }
 }

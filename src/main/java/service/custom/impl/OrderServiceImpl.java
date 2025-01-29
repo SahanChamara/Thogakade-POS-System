@@ -1,8 +1,6 @@
-package controller.order;
+package service.custom.impl;
 
-import controller.customer.CustomerController;
-import controller.item.ItemController;
-import controller.orderdetail.OrderDetailController;
+import service.custom.OrderService;
 import dbconnection.DBConnection;
 import model.Customer;
 import model.Item;
@@ -15,14 +13,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderController implements OrderService {
-    private static OrderController instance;
+public class OrderServiceImpl implements OrderService {
+    private static OrderServiceImpl instance;
 
-    private OrderController() {
+    private OrderServiceImpl() {
     }
 
-    public static OrderController getInstance() {
-        return instance != null ? instance : new OrderController();
+    public static OrderServiceImpl getInstance() {
+        return instance != null ? instance : new OrderServiceImpl();
     }
 
     @Override
@@ -51,17 +49,17 @@ public class OrderController implements OrderService {
 
     @Override
     public Customer searchCustomerName(String customerId) {
-        return CustomerController.getInstance().searchCustomer(customerId);
+        return CustomerServiceImpl.getInstance().searchCustomer(customerId);
     }
 
     @Override
     public List<Item> getItemCode() {
-        return ItemController.getInstance().getAllItems();
+        return ItemServiceImpl.getInstance().getAllItems();
     }
 
     @Override
     public List<Item> loadItemDetails(String itemId) {
-        return ItemController.getInstance().searchItem(itemId);
+        return ItemServiceImpl.getInstance().searchItem(itemId);
     }
 
     @Override
@@ -79,7 +77,7 @@ public class OrderController implements OrderService {
             pst.setString(2, orders.getDate());
             pst.setString(3, orders.getCustomerId());
 
-            if (pst.executeUpdate() > 0 && OrderDetailController.getInstance().addOrderDetail(orders.getOrderDetailList()) && ItemController.getInstance().updateStock(orders.getOrderDetailList())) {
+            if (pst.executeUpdate() > 0 && OrderDetailServiceImpl.getInstance().addOrderDetail(orders.getOrderDetailList()) && ItemServiceImpl.getInstance().updateStock(orders.getOrderDetailList())) {
                 connection.commit();
                 return true;
             }

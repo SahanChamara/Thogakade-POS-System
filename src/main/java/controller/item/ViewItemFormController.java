@@ -10,6 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Item;
+import service.custom.impl.ItemServiceImpl;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,7 +33,7 @@ public class ViewItemFormController implements Initializable {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        if(ItemController.getInstance().deleteItem((Item) tblItem.getSelectionModel().getSelectedItem())){
+        if(ItemServiceImpl.getInstance().deleteItem((Item) tblItem.getSelectionModel().getSelectedItem())){
             new Alert(Alert.AlertType.INFORMATION,"Item Delete Successful").show();
             loadTable();
         }
@@ -45,7 +46,7 @@ public class ViewItemFormController implements Initializable {
 
     private void loadTable() {
         ObservableList<Item> itemObservableList = FXCollections.observableArrayList();
-        itemObservableList.addAll(ItemController.getInstance().getAllItems());
+        itemObservableList.addAll(ItemServiceImpl.getInstance().getAllItems());
         tblItem.setItems(itemObservableList);
     }
 

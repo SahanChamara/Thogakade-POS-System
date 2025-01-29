@@ -1,13 +1,14 @@
-package controller.order;
+package service.custom;
 
 import model.Customer;
 import model.Item;
 import model.Orders;
+import service.SuperService;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface OrderService {
+public interface OrderService extends SuperService {
     String getOrderId();
     List<String> getCustomerId();
     Customer searchCustomerName(String customerId);

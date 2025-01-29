@@ -1,8 +1,9 @@
-package controller.item;
+package service.custom.impl;
 
 import dbconnection.DBConnection;
 import model.Item;
 import model.OrderDetail;
+import service.custom.ItemService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,14 +11,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemController implements ItemService {
-    private static ItemController instance;
+public class ItemServiceImpl implements ItemService {
+    private static ItemServiceImpl instance;
 
-    private ItemController() {
+    private ItemServiceImpl() {
     }
 
-    public static ItemController getInstance() {
-        return instance != null ? instance : new ItemController();
+    public static ItemServiceImpl getInstance() {
+        return instance != null ? instance : new ItemServiceImpl();
     }
 
     @Override
@@ -109,7 +110,7 @@ public class ItemController implements ItemService {
     @Override
     public boolean updateStock(OrderDetail orderDetail) {
         try {
-            PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement(("UPDATE item SET qtyOnHand=? WHERE code=?"));
+            PreparedStatement pst = DBConnection.getInstance().getConnection().prepareStatement(("UPDATE item SET qtyOnHand=qtyOnHand-? WHERE code=?"));
             pst.setInt(1,orderDetail.getQty());
             pst.setString(2,orderDetail.getItemCode());
             return pst.executeUpdate()>0;

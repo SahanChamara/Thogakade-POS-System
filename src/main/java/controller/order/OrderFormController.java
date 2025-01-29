@@ -21,8 +21,10 @@ import model.Item;
 import model.OrderDetail;
 import model.OrderTable;
 import model.Orders;
+import service.custom.impl.OrderServiceImpl;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -136,7 +138,7 @@ public class OrderFormController implements Initializable {
     }
 
     @FXML
-    void btnPlaceOrderOnAction(ActionEvent event) {
+    void btnPlaceOrderOnAction(ActionEvent event) throws SQLException {
         comboCustomerId.setEditable(true);
 
         ArrayList<OrderDetail> orderDetailArrayList = new ArrayList<>();
@@ -145,8 +147,10 @@ public class OrderFormController implements Initializable {
             orderDetailArrayList.add(new OrderDetail(lblOrderId.getText(), orderTable.getItemCode(), orderTable.getQty(), orderTable.getUnitPrice()));
         }
 
-        if(OrderController.getInstance().placeOrder(new Orders(lblOrderId.getText(),lblDate.getText(),comboCustomerId.getSelectionModel().getSelectedItem().toString(),orderDetailArrayList))){
+        if(OrderServiceImpl.getInstance().placeOrder(new Orders(lblOrderId.getText(),lblDate.getText(),comboCustomerId.getSelectionModel().getSelectedItem().toString(),orderDetailArrayList))){
             new Alert(Alert.AlertType.INFORMATION,"Order Placed Successful").show();
+            setOrderId();
+            orderTableObservableList.clear();
         }else {
             new Alert(Alert.AlertType.INFORMATION,"Order Placed Failed").show();
         }
@@ -154,7 +158,10 @@ public class OrderFormController implements Initializable {
 
     @FXML
     void btnRemoveOrderAction(ActionEvent event) {
-
+        Object selectedItem = tblOrders.getSelectionModel().getSelectedItem();
+        if(selectedItem!=null){
+            orderTableObservableList.remove(selectedItem);
+        }
     }
 
     @FXML
@@ -163,7 +170,7 @@ public class OrderFormController implements Initializable {
     }
 
     void setOrderId() {
-        lblOrderId.setText(String.format("D%03d",Integer.parseInt(OrderController.getInstance().getOrderId().substring(1))+1));
+        lblOrderId.setText(String.format("D%03d",Integer.parseInt(OrderServiceImpl.getInstance().getOrderId().substring(1))+1));
     }
 
     void setTime() {
@@ -180,17 +187,17 @@ public class OrderFormController implements Initializable {
 
     void loadCustomerId() {
         ObservableList<String> customerIdObservableList = FXCollections.observableArrayList();
-        customerIdObservableList.addAll(OrderController.getInstance().getCustomerId());
+        customerIdObservableList.addAll(OrderServiceImpl.getInstance().getCustomerId());
         comboCustomerId.setItems(customerIdObservableList);
     }
 
     void setCustomerName() {
-        lblCustomerName.setText(OrderController.getInstance().searchCustomerName(comboCustomerId.getSelectionModel().getSelectedItem().toString()).getName());
+        lblCustomerName.setText(OrderServiceImpl.getInstance().searchCustomerName(comboCustomerId.getSelectionModel().getSelectedItem().toString()).getName());
     }
 
     void loadItemCodes() {
         ObservableList<String> itemCodesObservableList = FXCollections.observableArrayList();
-        for (Item item : OrderController.getInstance().getItemCode()) {
+        for (Item item : OrderServiceImpl.getInstance().getItemCode()) {
             itemCodesObservableList.add(item.getCode());
         }
         comboItemCode.setItems(itemCodesObservableList);
@@ -199,7 +206,7 @@ public class OrderFormController implements Initializable {
 
     @FXML
     public void comboItemStateChange(ActionEvent actionEvent) {
-        for (Item loadItemDetail : OrderController.getInstance().loadItemDetails(comboItemCode.getSelectionModel().getSelectedItem().toString())) {
+        for (Item loadItemDetail : OrderServiceImpl.getInstance().loadItemDetails(comboItemCode.getSelectionModel().getSelectedItem().toString())) {
             lblDescription.setText(loadItemDetail.getDescription());
             lblUnitPrice.setText(String.valueOf(loadItemDetail.getUnitPrice()));
             lblQtyOnHand.setText(String.valueOf(loadItemDetail.getQtyOnHand()));
